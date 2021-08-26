@@ -2,26 +2,26 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
     labels:
-        app: mild-temper-microservice
+        app: subjective-doing-microservice
         stack: frontend
         source: demo
-    name: mild-temper-microservice
+    name: subjective-doing-microservice
     namespace: microservices
 spec:
     replicas: 3
     selector:
         matchLabels:
-            run: mild-temper-microservice
+            run: subjective-doing-microservice
     template:
         metadata:
             labels:
-                app: mild-temper-microservice
-                run: mild-temper-microservice
+                app: subjective-doing-microservice
+                run: subjective-doing-microservice
                 source: demo
         spec:
             containers:
-                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/mild-temper-microservice
-                    name: mild-temper-microservice
+                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/subjective-doing-microservice
+                    name: subjective-doing-microservice
                     ports:
                         -   name: web
                             containerPort: 8080
@@ -31,13 +31,13 @@ kind: Service
 apiVersion: v1
 metadata:
     labels:
-        app: mild-temper-microservice-service
-    name: mild-temper-microservice-service
+        app: subjective-doing-microservice-service
+    name: subjective-doing-microservice-service
     namespace: microservices
 spec:
     selector:
         source: demo
-        app: mild-temper-microservice
+        app: subjective-doing-microservice
     ports:
         -   name: web
             protocol: TCP
@@ -51,15 +51,15 @@ kind: Ingress
 metadata:
     annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /$2
-    name: mild-temper-ingress
+    name: subjective-doing-ingress
     namespace: microservices
 spec:
     rules:
         -   http:
                 paths:
-                    -   path: /mild-temper(/|$)(.*)
+                    -   path: /subjective-doing(/|$)(.*)
                         backend:
-                            serviceName: mild-temper-microservice-service
+                            serviceName: subjective-doing-microservice-service
                             servicePort: 30201
 
 
